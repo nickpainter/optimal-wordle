@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  optimal-wordle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: optimal-wordle-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - wordle-network
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+networks:
+  wordle-network:
+    driver: bridge
+
+# Optional: Add a volume for logs
+volumes:
+  nginx-logs:
+    driver: local
